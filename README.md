@@ -2,6 +2,10 @@
 
 **Magnificent 7 · A Decade of Market Cap（2014 → 2024）**
 
+**中文** · [English](README.en.md)
+
+![科技七雄 · 十年市值赛跑 —— 2024 年落版](preview.png)
+
 单文件 HTML 数据动效：七家科技巨头十年市值条形赛跑。片头逐字弹入 + 扫光，条形按真实市值逐年插值增长、名次实时换位，落版突出英伟达十年约 300 倍。
 
 ## 文件
@@ -11,6 +15,7 @@
 | `effects.html` | **原始版**。自包含单文件（零外部依赖），双击即播。由 CSS `@keyframes` + `requestAnimationFrame` 驱动 |
 | `effects.render.html` | **逐帧渲染版**。暴露 `window.__seek(t)` / `window.__duration`，剥离全部 CSS 动画与累积状态（粒子改确定性重放），任意 t 可独立求解 —— 用于稳定逐帧出片 |
 | `mag7_1920x1080.mp4` | 成片：1920×1080 / 30fps / 10.4s / 1.6MB |
+| `preview.png` | 落版静帧（上方封面图） |
 
 ## 画面结构（总长 10.4s）
 

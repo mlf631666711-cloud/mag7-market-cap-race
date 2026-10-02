@@ -6,6 +6,8 @@
 
 ![Magnificent 7 market-cap race — 2024 end card](preview.png)
 
+▶ **Live demo (plays in the browser)** — <https://mlf631666711-cloud.github.io/mag7-market-cap-race/>
+
 A zero-dependency, single-file HTML data animation: seven tech giants race bar-by-bar through ten years of market cap. The title card pops in letter by letter under a light sweep, the bars grow from real year-end market-cap values while their ranking eases into place, and the end card calls out NVIDIA's roughly **300×** decade.
 
 ## Files

@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>科技七雄 · 十年市值赛跑 | Magnificent 7 · Market Cap Race</title>
+<meta name="description" content="单文件 HTML 数据动效：七家科技巨头十年市值条形赛跑（2014 → 2024）。A zero-dependency single-file HTML data animation." />
+<style>
+  :root{
+    --bg:#05060a; --panel:#0c0e15; --line:#1d2130;
+    --ink:#eef1f7; --dim:#8b93a7; --dim2:#5d6478;
+    --gold:#e8c15c; --nv:#8fd63f; --ms:#2ec7b4;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{height:100%;}
+  body{
+    background:var(--bg); color:var(--ink);
+    font-family:"Inter","Helvetica Neue",-apple-system,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;
+    -webkit-font-smoothing:antialiased;
+    display:flex; align-items:center; justify-content:center;
+    padding:40px 24px; position:relative; overflow-x:hidden;
+  }
+  /* 深空星点 + 顶部一道青光 */
+  body::before{
+    content:""; position:fixed; inset:0; pointer-events:none;
+    background:
+      radial-gradient(900px 420px at 50% -8%, rgba(90,140,255,.16), transparent 70%),
+      radial-gradient(700px 500px at 88% 108%, rgba(46,199,180,.10), transparent 70%);
+  }
+  body::after{
+    content:""; position:fixed; inset:0; pointer-events:none; opacity:.5;
+    background-image:
+      radial-gradient(1.2px 1.2px at 12% 22%, #fff 40%, transparent 41%),
+      radial-gradient(1px 1px at 78% 12%, #cfe0ff 40%, transparent 41%),
+      radial-gradient(1px 1px at 34% 78%, #fff 40%, transparent 41%),
+      radial-gradient(1.4px 1.4px at 62% 56%, #bcd0ff 40%, transparent 41%),
+      radial-gradient(1px 1px at 88% 82%, #fff 40%, transparent 41%),
+      radial-gradient(1px 1px at 22% 52%, #dfe8ff 40%, transparent 41%);
+  }
+  main{position:relative; z-index:1; width:100%; max-width:920px;}
+  .kicker{
+    font-size:11px; letter-spacing:.34em; text-transform:uppercase; color:var(--dim2);
+    display:flex; gap:14px; align-items:center; justify-content:center; flex-wrap:wrap;
+  }
+  .kicker b{color:var(--gold); font-weight:600;}
+  h1{
+    margin:18px 0 10px; text-align:center;
+    font-size:clamp(30px,5.4vw,54px); line-height:1.1; font-weight:800; letter-spacing:-.02em;
+    background:linear-gradient(180deg,#fff 30%,#9aa6c2 100%);
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  .sub{
+    text-align:center; color:var(--dim); font-size:clamp(12px,1.6vw,15px);
+    letter-spacing:.06em; margin-bottom:30px;
+  }
+  .shot{
+    display:block; width:100%; height:auto; border-radius:12px; background:#000;
+    border:1px solid var(--line); box-shadow:0 24px 70px rgba(0,0,0,.6);
+  }
+  .actions{display:flex; gap:12px; justify-content:center; margin:28px 0 22px; flex-wrap:wrap;}
+  a.btn{
+    display:inline-flex; align-items:center; gap:9px;
+    padding:12px 22px; border-radius:999px; font-size:14px; font-weight:600;
+    text-decoration:none; color:var(--ink); background:var(--panel);
+    border:1px solid var(--line); transition:transform .18s ease, border-color .18s ease, background .18s ease;
+  }
+  a.btn:hover{transform:translateY(-2px); border-color:#39405a;}
+  a.btn.primary{
+    background:linear-gradient(180deg,#f0d077,#d3a53c); color:#241a02; border-color:#f0d077;
+  }
+  a.btn.primary:hover{background:linear-gradient(180deg,#f7dc8c,#e0b349);}
+  a.btn .dot{width:8px;height:8px;border-radius:50%;}
+  .meta{
+    display:flex; gap:10px 26px; flex-wrap:wrap; justify-content:center;
+    color:var(--dim2); font-size:12px; letter-spacing:.03em;
+  }
+  .meta span{display:inline-flex; align-items:center; gap:7px;}
+  .meta i{width:7px;height:7px;border-radius:2px;display:inline-block;}
+  footer{
+    margin-top:26px; padding-top:18px; border-top:1px solid var(--line);
+    text-align:center; color:var(--dim2); font-size:11.5px; line-height:1.9; letter-spacing:.03em;
+  }
+  footer a{color:var(--dim); text-decoration:none; border-bottom:1px solid #262b3d;}
+  footer a:hover{color:var(--gold); border-color:var(--gold);}
+  @media (prefers-reduced-motion: no-preference){
+    main{animation:rise .7s cubic-bezier(.22,.7,.24,1) both;}
+    @keyframes rise{from{opacity:0; transform:translateY(14px);} to{opacity:1; transform:none;}}
+  }
+</style>
+</head>
+<body>
+<main>
+  <div class="kicker"><span>MARKET CAP RACE</span><span>·</span><b>2014 &rarr; 2024</b><span>·</span><span>SINGLE-FILE HTML</span></div>
+
+  <h1>科技七雄 · 十年市值赛跑</h1>
+  <div class="sub">Magnificent 7 &middot; A Decade of Market Cap</div>
+
+  <video class="shot" src="mag7_1920x1080.mp4" poster="preview.png"
+         controls playsinline preload="metadata" width="1920" height="1080"></video>
+
+  <div class="actions">
+    <a class="btn primary" href="effects.html"><span class="dot" style="background:#241a02"></span>直接播放</a>
+    <a class="btn" href="effects.render.html"><span class="dot" style="background:var(--nv)"></span>逐帧渲染版</a>
+    <a class="btn" href="mag7_1920x1080.mp4"><span class="dot" style="background:var(--ms)"></span>下载成片 MP4</a>
+  </div>
+
+  <div class="meta">
+    <span><i style="background:var(--gold)"></i>10.4s &middot; 1920&times;1080 &middot; 30fps</span>
+    <span><i style="background:var(--nv)"></i>零依赖单文件</span>
+    <span><i style="background:var(--ms)"></i>逐字弹入 &middot; 扫光 &middot; 排名缓动</span>
+  </div>
+
+  <footer>
+    数据：Visual Capitalist / CompaniesMarketCap（单位：十亿美元，年末口径）<br />
+    <a href="README.md">中文说明</a> &nbsp;·&nbsp; <a href="README.en.md">English</a> &nbsp;·&nbsp;
+    <a href="https://github.com/mlf631666711-cloud/mag7-market-cap-race">GitHub Repository</a>
+  </footer>
+</main>
+</body>
+</html>

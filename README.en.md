@@ -1,25 +1,96 @@
-# Magnificent 7 · A Decade of Market Cap Race
+# Remotion Gallery
 
-**科技七雄 · 十年市值赛跑（2014 → 2024）**
+**Single-file HTML animation showcase**
 
 [中文](README.md) · **English**
 
-![Magnificent 7 market-cap race — 2024 end card](preview.png)
+![Remotion Gallery](preview.png)
 
-▶ **Live demo (plays in the browser)** — <https://mlf631666711-cloud.github.io/mag7-market-cap-race/>
+▶ **Live gallery (plays in the browser)** — <https://mlf631666711-cloud.github.io/remotion-gallery/>
+
+A collection of HTML animations we build. Every piece is a **zero-dependency single-file HTML** — double-click to play, no build step, readable source — shipped together with its rendered MP4.
+
+## Demos
+
+| # | Demo | Length | Watch | Source |
+|---|---|---|---|---|
+| 01 | 科技七雄 · 十年市值赛跑<br /><sub>Magnificent 7 · Market Cap Race</sub> | 10.4s | [▶ Play](https://mlf631666711-cloud.github.io/remotion-gallery/demos/mag7-market-cap-race/) | [Folder](demos/mag7-market-cap-race/) |
+
+## Repository layout
+
+```
+.
+├── index.html                      # Gallery home (card wall)
+├── preview.png                     # Repo cover / social preview
+├── favicon.svg
+├── README.md  README.en.md  LICENSE
+└── demos/
+    └── mag7-market-cap-race/       # Demo 01
+        ├── index.html              # Detail page (player + entry points)
+        ├── effects.html            # Main file: double-click to play
+        ├── effects.render.html     # Export build: frame-seekable
+        ├── mag7_1920x1080.mp4      # Rendered video
+        ├── preview.png             # 1920×1080 end-card still
+        └── thumb.png               # 960px card thumbnail
+```
+
+## Adding a new demo
+
+**1. Create a folder** — one demo per folder; never pile files into the root:
+
+```
+demos/<slug>/            # kebab-case slug, e.g. spring-launch-teaser
+  ├── index.html         # detail page (copy demo 01 and adapt)
+  ├── <main>.html        # zero-dependency, double-click to play
+  ├── <main>.render.html # exposes window.__seek(t) / window.__duration
+  ├── <slug>_1920x1080.mp4
+  ├── preview.png        # 1920×1080 end-card still
+  └── thumb.png          # card thumbnail
+```
+
+**2. Make a card thumbnail** (don't hang a 1080p still on the home page):
+
+```bash
+ffmpeg -y -i preview.png -vf scale=960:-1 thumb.png
+```
+
+**3. Add it to the home page** — copy one whole `<article class="card">` inside `.grid` in the root `index.html`, then update the cover path, title, description, tags, the three links and the index number.
+
+**4. Register it** — add a row to the Demos table above, then:
+
+```bash
+git add -A && git commit -m "add: <demo name>" && git push
+```
+
+## House rules every demo follows
+
+- **Zero dependency** — no CDN, no packages. One HTML file dropped into a browser just runs.
+- **Two builds per demo** — the main file is for watching; the `.render.html` file is for exporting. It exposes `window.__seek(t)` and `window.__duration`, with all CSS animation and accumulated state stripped out, so the same `t` renders byte-identically every run.
+- **Detail page plays** — every `demos/<slug>/index.html` plays the video on open and links back to the gallery.
+- **Video naming** — `<slug>_1920x1080.mp4`, 1920×1080 / 30fps / H.264.
+
+---
+
+## Demo 01 · Magnificent 7 · A Decade of Market Cap Race
+
+**科技七雄 · 十年市值赛跑（2014 → 2024）**
+
+▶ <https://mlf631666711-cloud.github.io/remotion-gallery/demos/mag7-market-cap-race/>
 
 A zero-dependency, single-file HTML data animation: seven tech giants race bar-by-bar through ten years of market cap. The title card pops in letter by letter under a light sweep, the bars grow from real year-end market-cap values while their ranking eases into place, and the end card calls out NVIDIA's roughly **300×** decade.
 
-## Files
+> All file names below live in `demos/mag7-market-cap-race/`.
+
+### Files
 
 | File | Description |
 |---|---|
 | `effects.html` | **Original build.** Self-contained single file (zero external dependencies) — double-click to play. Driven by CSS `@keyframes` + `requestAnimationFrame`. |
 | `effects.render.html` | **Frame-render build.** Exposes `window.__seek(t)` / `window.__duration`. All CSS animation and accumulated state removed (particles replay deterministically), so any `t` resolves independently — required for stable frame-by-frame export. |
 | `mag7_1920x1080.mp4` | Rendered video: 1920×1080 / 30 fps / 10.4 s / 1.6 MB |
-| `preview.png` | Still frame from the end card (the cover above) |
+| `preview.png` | Still frame from the end card (the detail-page cover) |
 
-## Structure (10.4 s total)
+### Structure (10.4 s total)
 
 | Segment | Time | What happens |
 |---|---|---|
@@ -27,7 +98,7 @@ A zero-dependency, single-file HTML data animation: seven tech giants race bar-b
 | Race | 1.75 – 9.0 s | 7 bars grow by linear interpolation of market cap; the axis rescales dynamically with `dynMax = maxV × 1.08`; rankings swap with `_disp += (rank − _disp) × 0.16` easing; the year counter follows |
 | Outro | 9.0 – 10.4 s | Lower third: NVIDIA NVDA, ten years `$11B → $3,355B`, a **~300×** gain |
 
-## Data (USD billions)
+### Data (USD billions)
 
 | Company | 2014 | 2015 | 2016 | 2017 | 2018 | 2019 | 2020 | 2021 | 2022 | 2023 | 2024 |
 |---|---|---|---|---|---|---|---|---|---|---|---|
@@ -41,7 +112,7 @@ A zero-dependency, single-file HTML data animation: seven tech giants race bar-b
 
 Source: Visual Capitalist / CompaniesMarketCap — USD billions, year-end values.
 
-## Make it your own
+### Make it your own
 
 Everything lives in the `PRESETS` array. Add one preset object and you are done:
 
@@ -56,7 +127,7 @@ Everything lives in the `PRESETS` array. Add one preset object and you are done:
 }
 ```
 
-## Turning the HTML into an MP4
+### Turning the HTML into an MP4
 
 ```
 1. Open effects.render.html with Playwright / Puppeteer
@@ -66,11 +137,11 @@ Everything lives in the `PRESETS` array. Add one preset object and you are done:
 
 To supersample, screenshot with `deviceScaleFactor: 2` (renders at 3840×2160) and downsample while encoding with `-vf scale=1920:1080`.
 
-## Two implementation gotchas
+### Two implementation gotchas
 
 - **Bar width is clamped**: `pct = clamp(v / dynMax * 100, 2, 94)`. So the shortest bar (Tesla) looks longer than a strictly linear scale would suggest — that is the intentional 2% floor, not a bug.
 - **`effects.html` does not satisfy the frame-seek contract**: it relies on CSS animation plus rAF accumulated state, so the same `t` can render differently across two runs. Use `effects.render.html` for export.
 
 ## License
 
-Code is free to study and remix. Data is compiled from public sources — please credit Visual Capitalist / CompaniesMarketCap.
+Code is free to study and remix. Data in each demo is compiled from public sources — credits are listed in the demo section.
